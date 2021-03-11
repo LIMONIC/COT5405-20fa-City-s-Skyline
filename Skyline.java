@@ -9,14 +9,12 @@ public class Skyline {
         for (List<Integer> r : res) {
             System.out.println(r.toString());
         }
-
     }
 
     public List<List<Integer>> getSkyline(int[][] buildings) {
         if (buildings.length == 0) {
             return new ArrayList<>();
         }
-
         return merge(buildings, 0, buildings.length - 1);
     }
 
@@ -43,12 +41,10 @@ public class Skyline {
         // merger two skylines
         int leftH = 0, rightH = 0; // Height of the point in the left or right part when added into result
         int pL = 0, pR = 0; // pointer
-
         while (pL < left.size() || pR < right.size()) {
             int x1 = pL < left.size() ? left.get(pL).get(0) : Integer.MAX_VALUE;
             int x2 = pR < right.size() ? right.get(pR).get(0) : Integer.MAX_VALUE;
             int x = 0;
-
             if (x1 < x2) {
                 leftH = left.get(pL).get(1);
                 x = x1;
@@ -64,7 +60,6 @@ public class Skyline {
                 pL++;
                 pR++;
             }
-
             int maxH = Math.max(leftH, rightH);
             updateRes(res, x, maxH);
         }
@@ -72,7 +67,7 @@ public class Skyline {
     }
 
     private void updateRes(List<List<Integer>> res, int x, int h) {
-        // Only update the height at the start point of the building
+        // Only update the height at the start point of each building
         // Avoid adding same height more than once at same building
         if (res.isEmpty() || res.get(res.size() - 1).get(1) != h) {
             res.add(new ArrayList<Integer>() {{
@@ -83,5 +78,4 @@ public class Skyline {
             res.get(res.size() - 1).set(1, h);
         }
     }
-
 }
